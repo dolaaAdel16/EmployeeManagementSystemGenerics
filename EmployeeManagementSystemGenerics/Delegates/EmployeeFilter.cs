@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EmployeeManagementSystemGenerics.Delegates
 {
-    internal class EmployeeFilter
-    {
-    }
+  
+    public delegate bool EmployeeFilter(EmployeeFilter employee);
+    
 }
