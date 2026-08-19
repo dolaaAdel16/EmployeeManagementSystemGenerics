@@ -130,6 +130,38 @@ namespace EmployeeManagementSystemGenerics.Services
         }
 
 
+        // ==========================
+        // SEARCH
+        // ==========================
+
+        public Employee? FindEmployeeById(int id)
+        {
+            foreach (Employee employee in _employees)
+            {
+                if (employee.Id == id)
+                {
+                    return employee;
+                }
+            }
+
+            return null;
+        }
+
+        public Employee? FindEmployeeByName(string name)
+        {
+            foreach(Employee employee in _employees)
+            {
+                if (employee.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return employee;
+                }
+            }
+
+            return null;
+        }
+
+
+
 
         private bool EmployeeIdExists(int id)
         {
