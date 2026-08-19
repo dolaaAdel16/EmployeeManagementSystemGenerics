@@ -1,4 +1,5 @@
 ﻿using EmployeeManagementSystemGenerics.Common;
+using EmployeeManagementSystemGenerics.Delegates;
 using EmployeeManagementSystemGenerics.Events;
 using EmployeeManagementSystemGenerics.Models;
 using System;
@@ -160,6 +161,7 @@ namespace EmployeeManagementSystemGenerics.Services
             return null;
         }
 
+
         // ==========================
         // DEPARTMENT EMPLOYEES
         // ==========================
@@ -185,6 +187,61 @@ namespace EmployeeManagementSystemGenerics.Services
         }
 
 
+        // ==========================
+        // DELEGATE FILTER
+        // ==========================
+
+        public List<Employee> FilterEmployees(EmployeeFilter filter)
+        {
+            List<Employee> result = new List<Employee>();
+
+            foreach (Employee employee in _employees)
+            {
+                if (filter(employee))
+                {
+                    result.Add(employee);
+                }
+            }
+
+            return result;
+        }
+
+        // ==========================
+        // PROMOTION
+        // ==========================
+
+        public Result<Manager> PromoteEmployeeToManager(int employeeId)
+        {
+            for (int i = 0; i < _employees.Count; i++)
+            {
+                Employee employee = _employees[i];
+
+                if(employee.Id == employeeId)
+                {
+                    if (employee is Manager)
+                    {
+                        return Result<Manager>.Fail("Employee is already a manager");
+                    }
+
+                    Manager manager = new Manager(
+                        employee.Id,
+                        employee.Name,
+                        employee.HireDate,
+                        employee.DepartmentId,
+                        employee.Salary);
+
+                    _employees[i] = manager;
+
+                    AddToHistory($"Employee promoted: {manager.Name}");
+
+                    EmployeePromoted?.Invoke(this, new EmployeeEventArgs(manager));
+
+                    return Result<Manager>.Ok(manager, "Employee promoted successfully."); 
+                }
+            }
+
+            return Result<Manager>.Fail("Employee not found");
+        }
 
 
 
