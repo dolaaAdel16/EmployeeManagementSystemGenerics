@@ -4,7 +4,19 @@ using System.Text;
 
 namespace EmployeeManagementSystemGenerics.Models
 {
-    internal class Department
+    public class Department
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Department (int id, string name)
+        {
+            Id = id;
+            Name = name;    
+        }
+
+        public override string ToString()
+        {
+            return $"Id : {Id} | Department: {Name}";
+        }
     }
 }
