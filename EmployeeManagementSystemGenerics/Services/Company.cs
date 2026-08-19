@@ -160,6 +160,31 @@ namespace EmployeeManagementSystemGenerics.Services
             return null;
         }
 
+        // ==========================
+        // DEPARTMENT EMPLOYEES
+        // ==========================
+
+        public Result<List<Employee>> GetEmployeesByDepartment(int departmentId)
+        {
+            if (! _departments.ContainsKey(departmentId))
+            {
+                return Result<List<Employee>>.Fail("Department doesn't exist");
+            }
+
+            List<Employee> result = new List<Employee>();   
+
+            foreach (Employee employee in _employees)
+            {
+                if (employee.DepartmentId == departmentId)
+                {
+                    result.Add(employee);
+                }
+            }
+
+            return Result<List<Employee>>.Ok(result, $"Found {result.Count} employee(s)");
+        }
+
+
 
 
 
