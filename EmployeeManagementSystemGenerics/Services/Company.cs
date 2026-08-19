@@ -77,6 +77,81 @@ namespace EmployeeManagementSystemGenerics.Services
             return result;
         }
 
+        // =========================
+        // EMPLOYEES and ONBOARDING
+        // =========================
+
+        public Result<Employee> AddEmployee(Employee employee)
+        {
+            if (employee.Id <= 0)
+            {
+                return Result<Employee>.Fail("Employee Id must be greate than zero.");
+            }
+            if(string.IsNullOrWhiteSpace(employee.Name))
+            {
+                return Result<Employee>.Fail("Employee name is required.");
+            }
+            if (employee.Salary < 0)
+            {
+                return Result<Employee>.Fail("Salary cannot be negative.");
+            }
+            if(! _departments.ContainsKey(employee.DepartmentId))
+            {
+                return Result<Employee>.Fail("Department doesn't exist.");
+            }
+            if(EmployeeIdExists(employee.Id))
+            {
+                return Result<Employee>.Fail($"Employee with Id {employee.Id} already exists.");
+            }
+
+            _onboardingQueue.Enqueue(employee);
+
+            AddToHistory($"Employee added to onboarding queue: {employee.Name}");
+
+            return Result<Employee>.Ok(employee, "Employee added to onboarding queue successfully");
+        }
+
+        public Result<Employee> ProcessNextOnboarding()
+        {
+            if (_onboardingQueue.Count == 0)
+            {
+                return Result<Employee>.Fail("Onboarding queue is empty");
+            }
+
+            Employee employee = _onboardingQueue.Dequeue();
+
+            _employees.Add(employee);
+
+            AddToHistory($"Employee onboarded: {employee.Name}");
+
+            EmployeeOnboarded?.Invoke(this, new EmployeeEventArgs(employee));
+
+            return Result<Employee>.Ok(employee, "Employee Onboarded successfully");
+        }
+
+
+
+        private bool EmployeeIdExists(int id)
+        {
+            foreach (Employee employee in _employees)
+            {
+                if (employee.Id == id)
+                {
+                    return true;
+                }
+            }
+
+
+            foreach (Employee employee in _onboardingQueue)
+            {
+                if (employee.Id == id)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
 
         private void AddToHistory(string action)
