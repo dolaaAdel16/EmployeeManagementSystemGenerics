@@ -273,6 +273,28 @@ namespace EmployeeManagementSystemGenerics.Services
             return Result<string>.Ok(skill, "Skill registered successfully");
         }
 
+        // ==========================
+        // AVERAGE SALARY
+        // ==========================
+
+        public decimal CalculateAverageSalary()
+        {
+            if (_employees.Count == 0)
+            {
+                return 0;
+            }
+
+            dedcimal totalSalary = 0;
+
+            foreach (Employee employee in _employees)
+            {
+                totalSalary += employee.Salary;
+            }
+
+            return totalSalary / _employees.Count;
+        }
+
+
 
 
         private bool EmployeeIdExists(int id)
