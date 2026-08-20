@@ -1,5 +1,4 @@
 ﻿using EmployeeManagementSystemGenerics.Services;
-
 namespace EmployeeManagementSystemGenerics
 {
     internal class Program
@@ -7,7 +6,6 @@ namespace EmployeeManagementSystemGenerics
         static void Main(string[] args)
         {
            
-
         }
     }
 }
