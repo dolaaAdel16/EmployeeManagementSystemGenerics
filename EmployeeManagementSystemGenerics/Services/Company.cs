@@ -273,6 +273,18 @@ namespace EmployeeManagementSystemGenerics.Services
             return Result<string>.Ok(skill, "Skill registered successfully");
         }
 
+        public List<string> GetUniqueSkills()
+        {
+            List<string> result = new List<string>();
+
+            foreach (string skill in _uniqueSkills)
+            {
+                result.Add(skill);
+            }
+
+            return result;
+        }
+
         // ==========================
         // AVERAGE SALARY
         // ==========================
