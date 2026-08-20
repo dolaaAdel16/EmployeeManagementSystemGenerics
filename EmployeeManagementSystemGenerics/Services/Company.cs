@@ -243,6 +243,36 @@ namespace EmployeeManagementSystemGenerics.Services
             return Result<Manager>.Fail("Employee not found");
         }
 
+        // ==========================
+        // SKILLS
+        // ==========================
+
+        public Result<string> RegisterSkillForEmployee(int employeeId, string skill)
+        {
+            Employee? employee = FindEmployeeById(employeeId);  
+
+            if (employee == null)
+            {
+                return Result<string>.Fail("Employee not found");
+            }
+
+            if (string.IsNullOrWhiteSpace(skill))
+            {
+                return Result<string>.Fail("Skill cannot be empty");
+            }
+
+            bool added = _uniqueSkills.Add(skill);
+
+            if (!added)
+            {
+                return Result<string>.Fail($"Skill '{skill}' already exists.");
+            }
+
+            AddToHistory($"{employee.Name} registered skill: {skill}");
+
+            return Result<string>.Ok(skill, "Skill registered successfully");
+        }
+
 
 
         private bool EmployeeIdExists(int id)
