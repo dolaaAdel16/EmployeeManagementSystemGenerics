@@ -11,7 +11,6 @@ namespace EmployeeManagementSystemGenerics
         {
             Company company = new Company();
 
-            //Subscribe to events
 
             company.EmployeeOnboarded += OnEmployeeOnboarded;
             company.EmployeePromoted += OnEmployeePromoted;
