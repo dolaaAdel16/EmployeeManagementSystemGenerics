@@ -333,6 +333,20 @@ namespace EmployeeManagementSystemGenerics.Services
             return history;
         }
 
+        // ==========================
+        // ACTIVE EMPLOYEES
+        // ==========================
+
+        public List<Employee> GetAllEmployees()
+        {
+            List<Employee> result = new List<Employee>();
+
+            foreach (Employee employee in _employees)
+            {
+                result.Add(employee);
+            }
+            return result;
+        }
 
 
         private bool EmployeeIdExists(int id)
