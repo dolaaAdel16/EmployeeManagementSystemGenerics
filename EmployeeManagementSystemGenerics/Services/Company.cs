@@ -16,8 +16,8 @@ namespace EmployeeManagementSystemGenerics.Services
         private readonly Stack<string> _actionHistory;
         private readonly HashSet<string> _uniqueSkills;
 
-        private event EventHandler<EmployeeEventArgs>? EmployeeOnboarded;
-        private event EventHandler<EmployeeEventArgs>? EmployeePromoted;
+        public event EventHandler<EmployeeEventArgs>? EmployeeOnboarded;
+        public event EventHandler<EmployeeEventArgs>? EmployeePromoted;
 
         public Company()
         {
@@ -284,7 +284,7 @@ namespace EmployeeManagementSystemGenerics.Services
                 return 0;
             }
 
-            dedcimal totalSalary = 0;
+            decimal totalSalary = 0;
 
             foreach (Employee employee in _employees)
             {
@@ -300,11 +300,11 @@ namespace EmployeeManagementSystemGenerics.Services
 
         public Dictionary<int, int> GetEmployeeCountPerDepartment()
         {
-            Dictonary<int, int> report = new Dictionary<int, int>();
+            Dictionary<int, int> report = new Dictionary<int, int>();
 
             foreach (KeyValuePair<int, Department> department in _departments)
             {
-                reports.Add(department.Key, 0);
+                report.Add(department.Key, 0);
             }
 
             foreach (Employee employee in _employees)
