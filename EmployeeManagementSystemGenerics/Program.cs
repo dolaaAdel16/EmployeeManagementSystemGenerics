@@ -14,6 +14,7 @@ namespace EmployeeManagementSystemGenerics
             Company company = new Company();
 
 
+            SeedData(company);
             // Subscribe to Events
             company.EmployeeOnboarded += OnEmployeeOnboarded;
 
@@ -815,11 +816,11 @@ namespace EmployeeManagementSystemGenerics
         {
             company.AddDepartment(new Department(1, "IT"));
             company.AddDepartment(new Department(2, "HR"));
-            company.AddDepartment(new Department(1, "Finance"));
+            company.AddDepartment(new Department(3, "Finance"));
 
             company.AddEmployee(new Employee(101, "Ahmed", new DateTime(2024, 1, 10), 1, 25000));
             company.AddEmployee(new Employee(101, "Sara", new DateTime(2024, 5, 20), 2, 18000));
-            company.AddEmployee(new Employee(101, "Omar", new DateTime(2025, 2, 1), 1, 22000));
+            company.AddEmployee(new Employee(101, "Omar", new DateTime(2025, 2, 1), 3, 22000));
 
             company.ProcessNextOnboarding();
             company.ProcessNextOnboarding();
