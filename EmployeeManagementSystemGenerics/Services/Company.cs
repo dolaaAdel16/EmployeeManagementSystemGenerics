@@ -294,6 +294,29 @@ namespace EmployeeManagementSystemGenerics.Services
             return totalSalary / _employees.Count;
         }
 
+        // ==========================
+        // DEPARTMENT REPORT
+        // ==========================
+
+        public Dictionary<int, int> GetEmployeeCountPerDepartment()
+        {
+            Dictonary<int, int> report = new Dictionary<int, int>();
+
+            foreach (KeyValuePair<int, Department> department in _departments)
+            {
+                reports.Add(department.Key, 0);
+            }
+
+            foreach (Employee employee in _employees)
+            {
+                if (report.ContainsKey(employee.DepartmentId))
+                {
+                    report[employee.DepartmentId]++;
+                }
+            }
+            return report;
+        }
+
 
 
 
