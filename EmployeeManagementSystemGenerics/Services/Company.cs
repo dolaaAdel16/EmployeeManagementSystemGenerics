@@ -318,6 +318,21 @@ namespace EmployeeManagementSystemGenerics.Services
         }
 
 
+        // ==========================
+        // ACTION HISTORY
+        // ==========================
+
+        public List<string> GetActionHistoryNewestFirst()
+        {
+            List<string> history = new List<string>();
+
+            foreach (string action in _actionHistory)
+            {
+                history.Add(action);
+            }
+            return history;
+        }
+
 
 
         private bool EmployeeIdExists(int id)
