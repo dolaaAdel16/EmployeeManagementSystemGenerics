@@ -20,7 +20,6 @@ namespace EmployeeManagementSystemGenerics
             company.EmployeePromoted += OnEmployeePromoted;
 
 
-            SeedData(company);
 
 
             bool running = true;
